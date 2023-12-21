@@ -3,13 +3,13 @@ from tkinter import PhotoImage, messagebox
 from threading import Timer
 from keyboard import *
 
-def windowSettings(main: Variable):
+def windowSettings(main: CTk):
     set_appearance_mode("Dark")
     x = ((main.winfo_screenwidth() - main.winfo_reqwidth()) / 2) - 210
     y = ((main.winfo_screenheight() - main.winfo_reqheight()) / 2) - 50
     main.geometry("500x270")
     main.wm_geometry("+%d+%d" % (x, y))
-    main.title("CPS Test")
+    main.title("CPS Test by kitsune.")
     main.resizable(width=False, height=False)
     
 def buttonSettings(Button: CTkButton):
@@ -25,39 +25,53 @@ class rootMenu:
         self.windowRoot = CTk()
         windowSettings(self.windowRoot)
         
-        def stop():
-            Timer.cancel()
-        
+        def func_forget():
+            self.button_play.place_forget()
+            self.button_exit.place_forget()
+            self.label.place_forget()
+            
+        def func_place():
+            self.button_play.place(relx=0.2, rely=0.55, anchor=CENTER)
+            self.button_exit.place(rely=0.75, relx=0.2, anchor=CENTER)
+            self.label.place(rely=0.3, relx=0.2, anchor=CENTER)
+
         def quitButton():
             if messagebox.askyesno(title="Warning", message="Are you sure?"):
                 self.windowRoot.destroy()
         
+        def start_click_btn():
+            func_forget()
+            self.click_button.place(relx=0.5, rely=0.5, anchor=CENTER)
+        
         def end():
-            self.label.configure(text=f"You've clicked {self.count} times in {self.timeout} seconds!")
-            self.button_play.configure(text="Begin")
+            self.label_2.configure(text=f"You've clicked {self.count} times\nin {self.timeout} seconds!")
+            func_place()
+            self.click_button.place_forget()
             self.count = 0
-            
+        
+        self.timer_cps = Timer(self.timeout, end)
         
         def beginButton():
             self.count += 1
             if self.count == 1:
-                self.button_play.configure(text="CLICK!!!")
-                stop_button.place
-                Timer(self.timeout, end).start()
+                self.timer_cps.start()
         
         self.button_exit = CTkButton(master=self.windowRoot, text="Exit", command=quitButton)
         buttonSettings(self.button_exit)
-        self.button_exit.place(rely=0.75, relx=0.5, anchor=CENTER)
+        self.button_exit.place(rely=0.75, relx=0.2, anchor=CENTER)
         
-        self.label = CTkLabel(master=self.windowRoot, text="CPS Test", font=('Roboto', 18))
-        self.label.place(rely=0.3, relx=0.5, anchor=CENTER)
+        self.label = CTkLabel(master=self.windowRoot, text="CPS Test", font=('Roboto', 20))
+        self.label.place(rely=0.3, relx=0.2, anchor=CENTER)
         
-        stop_button = CTkButton(master=self.windowRoot, text="Stop", command=stop)
-        buttonSettings(stop_button)
+        self.label_2 = CTkLabel(master=self.windowRoot, text="", font=('Roboto', 18))
+        self.label_2.place(relx=0.7, rely=0.5, anchor=CENTER)
         
-        self.button_play = CTkButton(master=self.windowRoot, text="Begin", command=beginButton)
+        self.click_button = CTkButton(master=self.windowRoot, text="CLICK!!", command=beginButton)
+        buttonSettings(self.click_button)
+        
+        self.button_play = CTkButton(master=self.windowRoot, text="Begin", command=start_click_btn)
         buttonSettings(self.button_play)
-        self.button_play.place(relx=0.5, rely=0.55, anchor=CENTER)
+        self.button_play.place(relx=0.2, rely=0.55, anchor=CENTER)
         
         self.windowRoot.mainloop()
         pass
