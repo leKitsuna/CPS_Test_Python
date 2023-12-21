@@ -1,2 +1,2 @@
-# CPS_Test_Python
+# CPS Test Application
 Application for Clicks Per Seconds Test
