@@ -1,8 +1,7 @@
 from customtkinter import *
 from tkinter import PhotoImage, messagebox
-from threading import *
+from threading import Timer
 from keyboard import *
-from datetime import *
 
 def windowSettings(main: Variable):
     set_appearance_mode("Dark")
