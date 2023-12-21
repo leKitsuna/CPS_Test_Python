@@ -9,7 +9,7 @@ def windowSettings(main: CTk):
     y = ((main.winfo_screenheight() - main.winfo_reqheight()) / 2) - 50
     main.geometry("500x270")
     main.wm_geometry("+%d+%d" % (x, y))
-    main.title("CPS Test by kitsune.")
+    main.title("CPS Test by leKitsuna.")
     main.resizable(width=False, height=False)
     
 def buttonSettings(Button: CTkButton):
