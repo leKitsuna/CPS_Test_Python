@@ -1,7 +1,8 @@
 from customtkinter import *
 from tkinter import PhotoImage, messagebox
-from threading import Timer
+from threading import *
 from keyboard import *
+from datetime import *
 
 def windowSettings(main: Variable):
     set_appearance_mode("Dark")
@@ -20,23 +21,20 @@ class rootMenu:
     def __init__(self) -> None:
         
         self.count = 0
-        self.time = 10
+        self.timeout = 3
         
         self.windowRoot = CTk()
         windowSettings(self.windowRoot)
         
         def stop():
             Timer.cancel()
-                
-        def changePosBtn():
-            self.button_exit.place(rely=2, relx=2, anchor=CENTER)
         
         def quitButton():
             if messagebox.askyesno(title="Warning", message="Are you sure?"):
                 self.windowRoot.destroy()
         
         def end():
-            self.label.configure(text=f"You've clicked {self.count} times in {self.time} seconds!")
+            self.label.configure(text=f"You've clicked {self.count} times in {self.timeout} seconds!")
             self.button_play.configure(text="Begin")
             self.count = 0
             
@@ -46,7 +44,7 @@ class rootMenu:
             if self.count == 1:
                 self.button_play.configure(text="CLICK!!!")
                 stop_button.place
-                Timer(self.count, end).start()
+                Timer(self.timeout, end).start()
         
         self.button_exit = CTkButton(master=self.windowRoot, text="Exit", command=quitButton)
         buttonSettings(self.button_exit)
