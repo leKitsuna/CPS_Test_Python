@@ -1,2 +1,3 @@
-# CPS Test Application
-Application for Clicks Per Seconds Test
+# CPS Test Application by leKitsuna
+My first project on Python.
+Used modules: customtkinter, tkinter, threading
