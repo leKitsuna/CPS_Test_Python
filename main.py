@@ -1,2 +1,2 @@
-from lib import rootMenu
-rootMenu()
+from lib import * # type: ignore
+rootMenu() # type: ignore
